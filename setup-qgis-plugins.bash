@@ -1,6 +1,6 @@
 #!/bin/bash
 # Sets up various QGIS plugins that are useful when running
-# on the cloud
+# on the cloud. Run as non-root user.
 set -euo pipefail
 
 # Tell qgis-plugin-manager where our qgis plugins are
