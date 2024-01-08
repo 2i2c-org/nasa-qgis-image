@@ -7,7 +7,7 @@ with special focus on using various NASA related datasets.
 
 To build, run and test the image locally:
 
-Checkout this repository, and in the code folder:
+Checkout this repository, and after `cd`ing into the repository's directory:
 
     docker build -t qgis .
     docker run -it -p 8888:8888 --security-opt seccomp=unconfined qgis
