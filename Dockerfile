@@ -31,4 +31,9 @@ COPY --chown=1000:1000 setup-qgis-plugins.bash /tmp/setup-qgis-plugins.bash
 RUN /tmp/setup-qgis-plugins.bash && rm /tmp/setup-qgis-plugins.bash
 
 COPY qgis.desktop ${DESKTOP_FILES_DIR}/qgis.desktop
+
+# Copy files to autostart folder, so that QGIS auto-starts when opening the Desktop
+# See: https://manpages.ubuntu.com/manpages/focal/en/man1/xdg-autostart.1.html
+COPY qgis.desktop /etc/xdg/autostart/qgis.desktop
+
 COPY qgis.xml ${MIME_FILES_DIR}/qgis.xml
