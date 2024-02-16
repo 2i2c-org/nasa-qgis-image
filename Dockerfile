@@ -19,6 +19,10 @@ ENV DESKTOP_FILES_DIR /opt/desktop-files
 ENV MIME_FILES_DIR /opt/mime-files
 RUN mkdir -p ${DESKTOP_FILES_DIR} ${MIME_FILES_DIR}
 
+# Enable the following line to allow the jovyan user to run sudo commands without a password
+# RUN echo "jovyan ALL=(ALL) NOPASSWD: ALL" >> /etc/sudoers
+RUN apt-get update && apt-get -y install wmctrl
+
 USER ${NB_UID}
 
 # Setup qgis
@@ -35,5 +39,7 @@ COPY qgis.desktop ${DESKTOP_FILES_DIR}/qgis.desktop
 # Copy files to autostart folder, so that QGIS auto-starts when opening the Desktop
 # See: https://manpages.ubuntu.com/manpages/focal/en/man1/xdg-autostart.1.html
 COPY qgis.desktop /etc/xdg/autostart/qgis.desktop
+
+COPY qgis.bash /home
 
 COPY qgis.xml ${MIME_FILES_DIR}/qgis.xml
