@@ -40,6 +40,6 @@ COPY qgis.desktop ${DESKTOP_FILES_DIR}/qgis.desktop
 # See: https://manpages.ubuntu.com/manpages/focal/en/man1/xdg-autostart.1.html
 COPY qgis.desktop /etc/xdg/autostart/qgis.desktop
 
-COPY qgis.bash /home
+COPY maximized-qgis.bash /usr/local/bin
 
 COPY qgis.xml ${MIME_FILES_DIR}/qgis.xml
