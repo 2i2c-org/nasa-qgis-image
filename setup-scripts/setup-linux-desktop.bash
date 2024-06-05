@@ -45,7 +45,7 @@ mamba install -c conda-forge --yes \
       nbgitpuller
 
 # Until https://github.com/jupyterhub/jupyter-remote-desktop-proxy/issues/87 is sorted
-python -m pip install --no-cache git+https://github.com/jupyterhub/jupyter-remote-desktop-proxy@a7c1ae9bca94ca3a4bbf90f7a105e16b1603d4bd
+# python -m pip install --no-cache git+https://github.com/jupyterhub/jupyter-remote-desktop-proxy@a7c1ae9bca94ca3a4bbf90f7a105e16b1603d4bd
 
 fix-permissions "${CONDA_DIR}"
 fix-permissions "/home/${NB_USER}"
