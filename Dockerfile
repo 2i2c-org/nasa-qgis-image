@@ -34,7 +34,5 @@ COPY qgis.desktop ${DESKTOP_FILES_DIR}/qgis.desktop
 
 COPY qgis.xml ${MIME_FILES_DIR}/qgis.xml
 
-
-RUN python -m pip install --no-cache git+https://github.com/sunu/jupyter-remote-desktop-proxy@975d0843efd9ac4ebe273631ba090ab5ebfd41b7
-RUN python -m pip install --no-cache git+https://github.com/sunu/jupyter-remote-qgis-proxy@772c016b413a0faae64110d7a147bd0cfadb2a3f
-
+RUN python -m pip install --no-cache jupyter-remote-desktop-proxy
+RUN python -m pip install --no-cache git+https://github.com/sunu/jupyter-remote-qgis-proxy@baf0d373c2f965a60bc6fe038bb04cacc8df8cf5
