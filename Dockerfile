@@ -22,9 +22,12 @@ RUN mkdir -p ${DESKTOP_FILES_DIR} ${MIME_FILES_DIR}
 USER ${NB_UID}
 
 # Setup qgis
+# note: latest version of qgis was breaking the python installation
+# so we are pinning to an older version for now
+# todo: link to an issue with details
 
 RUN mamba install -c conda-forge --yes \
-    qgis \
+    qgis==3.36.0 \
     qgis-plugin-manager
 
 COPY --chown=1000:1000 setup-qgis-plugins.bash /tmp/setup-qgis-plugins.bash
