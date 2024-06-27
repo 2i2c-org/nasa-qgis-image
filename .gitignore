@@ -127,3 +127,10 @@ dmypy.json
 
 # Pyre type checker
 .pyre/
+
+# Mac OS X Finder
+.DS_Store
+
+# local libraries folders for development
+jupyter-remote-qgis-proxy
+jupyter-remote-desktop-proxy

@@ -1,4 +1,4 @@
-FROM quay.io/jupyter/minimal-notebook:2024-03-14
+FROM quay.io/jupyter/minimal-notebook:2024-06-24
 
 USER root
 
@@ -21,8 +21,6 @@ RUN mkdir -p ${DESKTOP_FILES_DIR} ${MIME_FILES_DIR}
 
 USER ${NB_UID}
 
-# Setup qgis
-
 RUN mamba install -c conda-forge --yes \
     qgis \
     qgis-plugin-manager
@@ -32,8 +30,7 @@ RUN /tmp/setup-qgis-plugins.bash && rm /tmp/setup-qgis-plugins.bash
 
 COPY qgis.desktop ${DESKTOP_FILES_DIR}/qgis.desktop
 
-# Copy files to autostart folder, so that QGIS auto-starts when opening the Desktop
-# See: https://manpages.ubuntu.com/manpages/focal/en/man1/xdg-autostart.1.html
-COPY qgis.desktop /etc/xdg/autostart/qgis.desktop
-
 COPY qgis.xml ${MIME_FILES_DIR}/qgis.xml
+
+RUN python -m pip install --no-cache jupyter-remote-desktop-proxy
+RUN python -m pip install --no-cache git+https://github.com/sunu/jupyter-remote-qgis-proxy@baf0d373c2f965a60bc6fe038bb04cacc8df8cf5
