@@ -32,5 +32,8 @@ COPY qgis.desktop ${DESKTOP_FILES_DIR}/qgis.desktop
 
 COPY qgis.xml ${MIME_FILES_DIR}/qgis.xml
 
+# Pin jupyterhub and pydantic to older version
+# because of https://github.com/NASA-IMPACT/veda-jupyterhub/issues/52#issuecomment-2277453902
+RUN python -m pip install --no-cache "jupyterhub<5.0.0" "pydantic<2.0"
 RUN python -m pip install --no-cache jupyter-remote-desktop-proxy
 RUN python -m pip install --no-cache git+https://github.com/sunu/jupyter-remote-qgis-proxy@baf0d373c2f965a60bc6fe038bb04cacc8df8cf5
