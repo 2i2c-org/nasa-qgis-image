@@ -33,5 +33,5 @@ COPY qgis.desktop ${DESKTOP_FILES_DIR}/qgis.desktop
 COPY qgis.xml ${MIME_FILES_DIR}/qgis.xml
 
 COPY environment.yml /tmp/environment.yml
-RUN mamba env update -f /tmp/environment.yml && \
+RUN mamba env update --prefix /srv/conda/envs/notebook --file /tmp/environment.yml && \
     mamba clean -a
