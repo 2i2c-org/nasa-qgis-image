@@ -1,0 +1,13 @@
+channels:
+  - conda-forge
+
+dependencies:
+  - pip
+  - nbgitpuller
+  - pip:
+    - jupyter-remote-desktop-proxy
+    # Pin jupyterhub and pydantic to older version
+    # because of https://github.com/NASA-IMPACT/veda-jupyterhub/issues/52#issuecomment-2277453902
+    - jupyterhub<5.0.0
+    - pydantic<2
+    - git+https://github.com/sunu/jupyter-remote-qgis-proxy@baf0d373c2f965a60bc6fe038bb04cacc8df8cf5
