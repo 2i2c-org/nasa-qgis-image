@@ -21,10 +21,6 @@ RUN mkdir -p ${DESKTOP_FILES_DIR} ${MIME_FILES_DIR}
 
 USER ${NB_UID}
 
-RUN mamba install -c conda-forge --yes \
-    qgis \
-    qgis-plugin-manager
-
 COPY --chown=1000:1000 setup-qgis-plugins.bash /tmp/setup-qgis-plugins.bash
 RUN /tmp/setup-qgis-plugins.bash && rm /tmp/setup-qgis-plugins.bash
 
@@ -32,8 +28,6 @@ COPY qgis.desktop ${DESKTOP_FILES_DIR}/qgis.desktop
 
 COPY qgis.xml ${MIME_FILES_DIR}/qgis.xml
 
-# Pin jupyterhub and pydantic to older version
-# because of https://github.com/NASA-IMPACT/veda-jupyterhub/issues/52#issuecomment-2277453902
-RUN python -m pip install --no-cache "jupyterhub<5.0.0" "pydantic<2.0"
-RUN python -m pip install --no-cache jupyter-remote-desktop-proxy
-RUN python -m pip install --no-cache git+https://github.com/sunu/jupyter-remote-qgis-proxy@baf0d373c2f965a60bc6fe038bb04cacc8df8cf5
+COPY environment.yml /tmp/environment.yml
+RUN mamba env update --prefix /opt/conda/envs/notebook --file /tmp/environment.yml && \
+    mamba clean -a
