@@ -4,6 +4,8 @@ channels:
 dependencies:
   - pip
   - nbgitpuller
+  - qgis
+  - qgis-plugin-manager
   - pip:
     - jupyter-remote-desktop-proxy
     # Pin jupyterhub and pydantic to older version

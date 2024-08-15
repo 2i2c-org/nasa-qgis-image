@@ -21,10 +21,6 @@ RUN mkdir -p ${DESKTOP_FILES_DIR} ${MIME_FILES_DIR}
 
 USER ${NB_UID}
 
-RUN mamba install -c conda-forge --yes \
-    qgis \
-    qgis-plugin-manager
-
 COPY --chown=1000:1000 setup-qgis-plugins.bash /tmp/setup-qgis-plugins.bash
 RUN /tmp/setup-qgis-plugins.bash && rm /tmp/setup-qgis-plugins.bash
 
