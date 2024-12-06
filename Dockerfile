@@ -36,4 +36,4 @@ COPY qgis.xml ${MIME_FILES_DIR}/qgis.xml
 # because of https://github.com/NASA-IMPACT/veda-jupyterhub/issues/52#issuecomment-2277453902
 RUN python -m pip install --no-cache "jupyterhub<5.0.0" "pydantic<2.0"
 RUN python -m pip install --no-cache jupyter-remote-desktop-proxy
-RUN python -m pip install --no-cache git+https://github.com/sunu/jupyter-remote-qgis-proxy@baf0d373c2f965a60bc6fe038bb04cacc8df8cf5
+RUN python -m pip install --no-cache git+https://github.com/sunu/jupyter-remote-qgis-proxy@e1a49e0ba98700c2f49fc092d5fc1e43ca5442eb
