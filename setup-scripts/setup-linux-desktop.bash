@@ -32,17 +32,10 @@ add-apt-repository ppa:mozillateam/ppa
 apt-get update -qq --yes > /dev/null
 apt-get install -qq --yes -t 'o=LP-PPA-mozillateam' --yes firefox
 
+# Install pyqt5-dev-tools for pyrcc5, needed by QGIS STAC plugin installation
+apt-get install --yes --no-install-recommends -qq \
+    pyqt5-dev-tools \
+    > /dev/null
+
 # Cleanup apt-get update side effects
 rm -rf /var/lib/apt/lists/*
-
-# Install packages required for linux desktop VPN setup to work
-# websockify and jupyter-server-proxy available from conda-forge, but
-# jupyter-remote-desktop-proxy is not.
-# Temporarily install nbgitpuller too, while we work on getting it upstream
-mamba install -c conda-forge --yes \
-      websockify \
-      jupyter-server-proxy \
-      nbgitpuller
-
-fix-permissions "${CONDA_DIR}"
-fix-permissions "/home/${NB_USER}"

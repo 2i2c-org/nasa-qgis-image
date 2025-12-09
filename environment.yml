@@ -1,0 +1,16 @@
+channels:
+  - conda-forge
+  - nodefaults
+
+dependencies:
+  - pip
+  - nbgitpuller
+  - jupyter-server-proxy
+  - qgis
+  - qgis-plugin-manager
+  - awscli
+  - libgdal-arrow-parquet
+  - libgdal-netcdf
+  - pip:
+    - jupyter-remote-desktop-proxy
+    - git+https://github.com/sunu/jupyter-remote-qgis-proxy@f64ade559e8c73b9bb9dcbd23aa4caef1febddbc

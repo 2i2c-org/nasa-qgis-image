@@ -1,4 +1,4 @@
-FROM quay.io/jupyter/minimal-notebook:2024-06-24
+FROM quay.io/jupyter/minimal-notebook:2025-12-03
 
 USER root
 
@@ -15,15 +15,14 @@ COPY startup-scripts /usr/local/bin/start-notebook.d/
 
 # env variables used by downstream images for setting up desktop files or
 # mime associations. Consumed by the startup-scripts in startup-scripts/
-ENV DESKTOP_FILES_DIR /opt/desktop-files
-ENV MIME_FILES_DIR /opt/mime-files
+ENV DESKTOP_FILES_DIR=/opt/desktop-files
+ENV MIME_FILES_DIR=/opt/mime-files
 RUN mkdir -p ${DESKTOP_FILES_DIR} ${MIME_FILES_DIR}
 
 USER ${NB_UID}
 
-RUN mamba install -c conda-forge --yes \
-    qgis \
-    qgis-plugin-manager
+ADD environment.yml environment.yml
+RUN conda env update --prefix /opt/conda --file environment.yml
 
 COPY --chown=1000:1000 setup-qgis-plugins.bash /tmp/setup-qgis-plugins.bash
 RUN /tmp/setup-qgis-plugins.bash && rm /tmp/setup-qgis-plugins.bash
@@ -31,9 +30,3 @@ RUN /tmp/setup-qgis-plugins.bash && rm /tmp/setup-qgis-plugins.bash
 COPY qgis.desktop ${DESKTOP_FILES_DIR}/qgis.desktop
 
 COPY qgis.xml ${MIME_FILES_DIR}/qgis.xml
-
-# Pin jupyterhub and pydantic to older version
-# because of https://github.com/NASA-IMPACT/veda-jupyterhub/issues/52#issuecomment-2277453902
-RUN python -m pip install --no-cache "jupyterhub<5.0.0" "pydantic<2.0"
-RUN python -m pip install --no-cache jupyter-remote-desktop-proxy
-RUN python -m pip install --no-cache git+https://github.com/sunu/jupyter-remote-qgis-proxy@e1a49e0ba98700c2f49fc092d5fc1e43ca5442eb
