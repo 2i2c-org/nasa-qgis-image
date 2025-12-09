@@ -13,4 +13,4 @@ dependencies:
   - libgdal-netcdf
   - pip:
     - jupyter-remote-desktop-proxy
-    - git+https://github.com/sunu/jupyter-remote-qgis-proxy@f64ade559e8c73b9bb9dcbd23aa4caef1febddbc
+    - git+https://github.com/sunu/jupyter-remote-qgis-proxy@deb511ec7ece043c3a4e1b5fe31caf3f070e8a58
