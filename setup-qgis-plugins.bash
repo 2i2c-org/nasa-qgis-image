@@ -10,6 +10,9 @@ export QGIS_PLUGINPATH=/opt/conda/share/qgis/python/plugins
 git clone https://github.com/slesaad/qgis-stac-plugin
 cd qgis-stac-plugin
 git checkout support_gdal_assets
+# tweak httpx, typer version in pyproject.toml to make sure it works with python 13
+sed -i 's/httpx = "^0.20.0"/httpx = "^0.28.0"/' pyproject.toml
+sed -i 's/typer = "^0.4.0"/typer = ">=0.19.0"/' pyproject.toml
 pip install --no-cache .
 
 python admin.py build
