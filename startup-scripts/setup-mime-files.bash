@@ -12,8 +12,16 @@ shopt -s nullglob
 
 MIME_DIR="${HOME}/.local/share/mime"
 MIME_PACKAGES_DIR="${MIME_DIR}/packages"
-mkdir -p "${MIME_PACKAGES_DIR}"
+
+# Create directories (non-fatal if disk is full)
+mkdir -p "${MIME_PACKAGES_DIR}" || echo "WARNING: Failed to create ${MIME_PACKAGES_DIR}"
+
 for mime_file_path in ${MIME_FILES_DIR}/*.xml; do
-    cp "${mime_file_path}" "${MIME_PACKAGES_DIR}/."
+    mime_file_name="$(basename "${mime_file_path}")"
+
+    # Copy mime file to packages directory (non-fatal if disk is full)
+    cp "${mime_file_path}" "${MIME_PACKAGES_DIR}/." || echo "WARNING: Failed to copy ${mime_file_name} to ${MIME_PACKAGES_DIR}"
 done
-update-mime-database "${MIME_DIR}"
+
+# Update mime database (non-fatal if it fails)
+update-mime-database "${MIME_DIR}" || echo "WARNING: Failed to update mime database"
