@@ -11,13 +11,25 @@ shopt -s nullglob
 
 APPLICATIONS_DIR="${HOME}/.local/share/applications"
 DESKTOP_DIR="${HOME}/Desktop"
-mkdir -p "${APPLICATIONS_DIR}"
-mkdir -p "${DESKTOP_DIR}"
-for desktop_file_path in ${DESKTOP_FILES_DIR}/*.desktop; do
-    cp "${desktop_file_path}" "${APPLICATIONS_DIR}/."
 
-    # Symlink application to desktop
+# Create directories (non-fatal if disk is full)
+mkdir -p "${APPLICATIONS_DIR}" || echo "WARNING: Failed to create ${APPLICATIONS_DIR}" >&2
+mkdir -p "${DESKTOP_DIR}" || echo "WARNING: Failed to create ${DESKTOP_DIR}" >&2
+
+for desktop_file_path in ${DESKTOP_FILES_DIR}/*.desktop; do
     desktop_file_name="$(basename ${desktop_file_path})"
-    ln -sf "${APPLICATIONS_DIR}/${desktop_file_name}" "${DESKTOP_DIR}/${desktop_file_name}"
+
+    # Copy desktop file to applications directory (non-fatal if disk is full)
+    if ! cp "${desktop_file_path}" "${APPLICATIONS_DIR}/."; then
+        echo "WARNING: Failed to copy ${desktop_file_name} to ${APPLICATIONS_DIR}" >&2
+        continue
+    fi
+
+    # Symlink application to desktop (non-fatal if disk is full)
+    if ! ln -sf "${APPLICATIONS_DIR}/${desktop_file_name}" "${DESKTOP_DIR}/${desktop_file_name}"; then
+        echo "WARNING: Failed to create desktop symlink for ${desktop_file_name}" >&2
+    fi
 done
-update-desktop-database "${APPLICATIONS_DIR}"
+
+# Update desktop database (non-fatal if it fails)
+update-desktop-database "${APPLICATIONS_DIR}" || echo "WARNING: Failed to update desktop database" >&2
