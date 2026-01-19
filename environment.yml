@@ -17,4 +17,4 @@ dependencies:
   - pydantic<2.0
   - pip:
     - jupyter-remote-desktop-proxy
-    - git+https://github.com/sunu/jupyter-remote-qgis-proxy@deb511ec7ece043c3a4e1b5fe31caf3f070e8a58
+    - git+https://github.com/sunu/jupyter-remote-qgis-proxy@c8342a7100d88062c55775847fad610335f9abb0
